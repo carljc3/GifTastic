@@ -1,0 +1,97 @@
+<!-- Dynammically create search buttons -->
+<!-- Add event listener to search button(s) -->
+<!-- Create a search button with imput feild -->
+<!-- Create on-click function and attach to -->
+<!-- Create pause and start feature -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>List of my favorite things!</title>
+</head>
+
+<body>
+  <h2>Welcome to the button factory!</h2>
+    <!-- Button Holder -->
+    <div ID="buttonholder"></div>
+    <div class="buttons"></div>
+  <button id="bunnyBtn" class="search-btn" value="bunny">Bunny</button>
+  <button id="DogBtn" class="search-btn" value="dog">Dog</button>
+  <button id="GiraffeBtn" class="search-btn" value="giraffe">Giraffe</button>
+  <button id="PotatoBtn" class="search-btn" value="potato">Potato</button>
+  <button id="PickleBtn" class="search-btn" value="pickle">Pickle</button>
+  <button id="artichokeBtn" class="search-btn" value="artichoke">Artichoke</button>
+
+     <!-- Random Photo Generator -->
+     <img id="imageid" src="https://api.giphy.com/v1/gifs/search?api_key=4AVCcFgESFFlgf0qITlYKwBPMoqW7AWq">
+  
+  <!-- <button id="createbtn" class="create" value="inputfeild">Make button here!</button> -->
+    <form id="buttonForm">
+      
+      <!-- Label for Text Box -->
+      <label for="buttonImput">Create button here!</label>
+      
+      <!-- Text Input Box -->
+        <input type="text" id="buttonImput"><br>
+        
+        <!-- Submit Button -->
+        <input id="createbtn" type="submit" value="Create Button">
+      </form>
+      
+      
+<div id="images">
+</div>
+<!-- Javascript Library-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+  // Event handler for user clicking the select button
+  $("#createbtn").on("click", function(event) {
+    // Preventing the button from trying to submit the form
+    event.preventDefault();
+    // Storing the artist name
+    var userImput = $("#buttonImput").val().trim();
+    $("#buttonImput").val("")
+    // Running the searchBandsInTown function(passing in the artist as an argument)
+  console.log(userImput);
+  });
+
+    //Event Listener
+    $(".search-btn").on("click", function () {
+      var filter = this.value
+      //
+      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=4AVCcFgESFFlgf0qITlYKwBPMoqW7AWq&q=" + filter
+      console.log("filter", filter) 
+
+      //
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+
+        //
+        .then(function (response) {
+          console.log(response)
+
+          //
+          var imageUrl = response.data[0].images.original.url;
+          console.log(imageUrl)
+
+          //
+          var displayImage = $("<img>");
+
+          //
+          displayImage.attr("src", imageUrl);
+          // displayImage.attr("alt", "cat image");
+
+
+          //
+          $("#images").prepend(displayImage);
+        });
+    });
+  </script>
+</body>
+
+</html>
