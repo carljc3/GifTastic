@@ -1,2 +1,1 @@
-# GifTastic
-Button Factory
+# giftastic
